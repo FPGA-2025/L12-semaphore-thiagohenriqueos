@@ -19,11 +19,10 @@ module bloco_controle (
     output reg clear_Reg05s
 );
 
-    typedef enum reg [1:0] {
-        EST_RED    = 2'b00,
-        EST_GREEN  = 2'b01,
-        EST_YELLOW = 2'b10
-    } estado_t;
+    // Definicao dos estados em Verilog puro:
+    parameter EST_RED    = 2'b00;
+    parameter EST_GREEN  = 2'b01;
+    parameter EST_YELLOW = 2'b10;
 
     reg [1:0] estado_atual, proximo_estado;
 
