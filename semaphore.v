@@ -1,25 +1,21 @@
 module Semaphore #(
-    parameter CLK_FREQ = 25_000_000
+    parameter CLK_FREQ = 25_000_000  // valor simbólico (não usado no modelo)
 ) (
     input wire clk,
-    input wire rst_n,  // reset assíncrono ativo baixo
-
+    input wire rst_n,  
     input wire pedestrian,
-
     output wire green,
     output wire yellow,
     output wire red
 );
 
-    // Sinais internos entre bloco de controle e bloco operacional
     wire load_Reg5s, clear_Reg5s, fim_5s;
     wire load_Reg7s, clear_Reg7s, fim_7s;
     wire load_Reg05s, clear_Reg05s, fim_05s;
 
-    // Bloco de Controle (FSM)
     bloco_controle ctrl (
         .clk(clk),
-        .rst(~rst_n),  // reset ativo alto internamente
+        .rst(~rst_n),
         .pedestrian(pedestrian),
         .fim_5s(fim_5s),
         .fim_7s(fim_7s),
@@ -35,10 +31,9 @@ module Semaphore #(
         .clear_Reg05s(clear_Reg05s)
     );
 
-    // Bloco Operacional (Contadores)
     bloco_operacional op (
         .clk(clk),
-        .rst(~rst_n),  // reset ativo alto internamente
+        .rst(~rst_n),
         .load_Reg5s(load_Reg5s),
         .clear_Reg5s(clear_Reg5s),
         .fim_5s(fim_5s),
